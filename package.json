@@ -1,0 +1,23 @@
+{
+  "name": "pulsemeet",
+  "version": "1.0.0",
+  "description": "A public-ready random video chat site with a distinct UI and WebRTC matchmaking.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "socket.io": "^4.7.5"
+  }
+}
+

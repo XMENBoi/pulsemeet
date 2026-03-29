@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="PulseMeet is a one-to-one random video chat lounge with live video, text chat, interest matching, and fast skip controls."
+    >
+    <title>PulseMeet</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="ambient ambient--one" aria-hidden="true"></div>
+    <div class="ambient ambient--two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-mark">PM</div>
+        <div>
+          <p class="eyebrow">Random video chat, redesigned</p>
+          <h1 class="brand-name" id="brandName">PulseMeet</h1>
+        </div>
+      </div>
+
+      <div class="topbar-stats" aria-label="Live site stats">
+        <div class="topbar-stat">
+          <span id="onlineCount">0</span>
+          <small>Online</small>
+        </div>
+        <div class="topbar-stat">
+          <span id="waitingCount">0</span>
+          <small>Waiting</small>
+        </div>
+        <div class="topbar-stat">
+          <span id="roomCount">0</span>
+          <small>Live rooms</small>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="stage">
+        <div class="hero-copy">
+          <p class="eyebrow">Spotlight mode</p>
+          <h2>Meet new people in a brighter lounge.</h2>
+          <p class="hero-text">
+            Live video, interest-based pairing, text chat, and skip-anytime controls in a UI built to feel fresh rather than copied.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card video-card--remote">
+            <div class="video-card__header">
+              <span class="pill pill--accent" id="sessionBadge">Offline</span>
+              <div class="pill-row" id="sharedInterestPills"></div>
+            </div>
+            <video id="remoteVideo" class="video-feed" autoplay playsinline></video>
+            <div class="video-overlay" id="remotePlaceholder">
+              <strong>Next conversation appears here.</strong>
+              <span>Go live to enter the lounge and start matching.</span>
+            </div>
+          </article>
+
+          <article class="video-card video-card--local">
+            <div class="video-card__header">
+              <span class="pill pill--soft">You</span>
+            </div>
+            <video id="localVideo" class="video-feed" autoplay muted playsinline></video>
+            <div class="video-overlay video-overlay--compact" id="localPlaceholder">
+              Camera preview stays private until you allow access.
+            </div>
+          </article>
+        </div>
+
+        <div class="control-bar">
+          <button id="startButton" class="button button--primary" type="button">Go live</button>
+          <button id="nextButton" class="button" type="button" disabled>Next person</button>
+          <button id="leaveButton" class="button" type="button" disabled>Pause</button>
+          <button id="micButton" class="button button--ghost" type="button" disabled>Mute mic</button>
+          <button id="cameraButton" class="button button--ghost" type="button" disabled>Camera off</button>
+          <button id="reportButton" class="button button--danger" type="button" disabled>Report</button>
+        </div>
+
+        <label class="consent-bar" for="consentCheckbox">
+          <input id="consentCheckbox" type="checkbox">
+          <span>
+            I confirm I am 18+ and agree to the
+            <a href="/terms.html" target="_blank" rel="noreferrer">Terms</a>
+            and
+            <a href="/privacy.html" target="_blank" rel="noreferrer">Privacy Policy</a>.
+          </span>
+        </label>
+      </section>
+
+      <aside class="lounge">
+        <section class="panel panel--status">
+          <div class="panel__heading">
+            <p class="eyebrow">Session status</p>
+            <h3 id="statusTitle">Ready when you are</h3>
+          </div>
+          <p id="statusText" class="status-copy">
+            Turn on your camera and microphone, add a few interests if you want better matches, then go live.
+          </p>
+          <div class="status-grid">
+            <div class="status-chip">
+              <span class="status-chip__label">Queue</span>
+              <strong id="queuePosition">-</strong>
+            </div>
+            <div class="status-chip">
+              <span class="status-chip__label">Room</span>
+              <strong id="roomStatus">Idle</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__heading">
+            <p class="eyebrow">Interest tags</p>
+            <h3>Boost the match quality</h3>
+          </div>
+          <label class="input-label" for="interestsInput">Separate topics with commas.</label>
+          <input
+            id="interestsInput"
+            class="text-input"
+            type="text"
+            maxlength="120"
+            placeholder="music, gaming, startups, anime, football"
+          >
+          <div class="tag-cloud" aria-label="Suggested interests">
+            <button class="tag-pill" data-suggested-tag="music" type="button">music</button>
+            <button class="tag-pill" data-suggested-tag="travel" type="button">travel</button>
+            <button class="tag-pill" data-suggested-tag="gaming" type="button">gaming</button>
+            <button class="tag-pill" data-suggested-tag="fitness" type="button">fitness</button>
+            <button class="tag-pill" data-suggested-tag="movies" type="button">movies</button>
+            <button class="tag-pill" data-suggested-tag="coding" type="button">coding</button>
+          </div>
+        </section>
+
+        <section class="panel panel--chat">
+          <div class="panel__heading panel__heading--split">
+            <div>
+              <p class="eyebrow">Side chat</p>
+              <h3>Keep the conversation flowing</h3>
+            </div>
+            <span class="chat-indicator" id="chatState">Locked</span>
+          </div>
+
+          <ol class="message-list" id="messageList" aria-live="polite">
+            <li class="message message--system">
+              Chat unlocks when you are paired with someone.
+            </li>
+          </ol>
+
+          <form id="chatForm" class="chat-form">
+            <input
+              id="chatInput"
+              class="text-input"
+              type="text"
+              maxlength="320"
+              placeholder="Say hello..."
+              disabled
+            >
+            <button id="sendButton" class="button button--primary" type="submit" disabled>Send</button>
+          </form>
+        </section>
+
+        <section class="panel panel--safety">
+          <div class="panel__heading">
+            <p class="eyebrow">Safety</p>
+            <h3>Launch publicly with guardrails</h3>
+          </div>
+
+          <label class="input-label" for="reportReason">Report reason</label>
+          <select id="reportReason" class="text-input">
+            <option value="Nudity or sexual content">Nudity or sexual content</option>
+            <option value="Harassment or hate speech">Harassment or hate speech</option>
+            <option value="Violence or threats">Violence or threats</option>
+            <option value="Spam or scam behavior">Spam or scam behavior</option>
+            <option value="User appears underage">User appears underage</option>
+          </select>
+
+          <ul class="safety-list">
+            <li>Require HTTPS in production so camera and microphone permissions work reliably.</li>
+            <li>Add a real TURN service before public launch so calls work across strict networks.</li>
+            <li>Back your report log with persistent storage if you want moderation history.</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      <span>PulseMeet is built for public launch with a custom UI, live video, and basic moderation hooks.</span>
+      <div class="footer-links">
+        <a href="/terms.html" target="_blank" rel="noreferrer">Terms</a>
+        <a href="/privacy.html" target="_blank" rel="noreferrer">Privacy</a>
+        <a href="/health" target="_blank" rel="noreferrer">Health</a>
+      </div>
+    </footer>
+
+    <div id="toastStack" class="toast-stack" aria-live="polite"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

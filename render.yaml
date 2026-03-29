@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: pulsemeet
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeployTrigger: commit
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: TRUST_PROXY
+        value: 1
+      - key: APP_NAME
+        value: PulseMeet
+      - key: REPORTS_LOG_PATH
+        value: reports/reports.jsonl
+      - key: MAX_MESSAGE_LENGTH
+        value: 320
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: TURN_PROVIDER
+        value: static
+      - key: ICE_SERVERS
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_TTL_SECONDS
+        value: 3600
+      - key: METERED_APP_NAME
+        sync: false
+      - key: METERED_API_KEY
+        sync: false
+      - key: METERED_REGION
+        sync: false

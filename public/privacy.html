@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PulseMeet Privacy</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="stage">
+        <p class="eyebrow">Legal</p>
+        <h1 class="brand-name">PulseMeet Privacy Policy</h1>
+        <p class="hero-text">
+          This project uses peer-to-peer WebRTC for live calls, plus a server for signaling, queueing, and moderation workflows.
+        </p>
+        <div class="panel">
+          <h3>Data handled by the app</h3>
+          <ul class="safety-list">
+            <li>Socket connection metadata and IP address can be visible to the server infrastructure.</li>
+            <li>Interest tags and text chat messages pass through the app server for matchmaking and delivery.</li>
+            <li>User reports can be stored in the reports log with room and participant identifiers.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Media handling</h3>
+          <ul class="safety-list">
+            <li>Camera and microphone access are granted by the browser on the user’s device.</li>
+            <li>WebRTC media is intended to flow directly between peers, but relay TURN servers may carry traffic when needed.</li>
+            <li>If you launch publicly, publish a full retention and moderation policy that matches your actual infrastructure.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
