@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ScanScribe Privacy</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="legal-shell">
+      <header class="legal-shell__header">
+        <p class="eyebrow">Legal</p>
+        <h1>ScanScribe Privacy</h1>
+        <p>
+          ScanScribe is designed to process OCR requests in the browser. Uploaded files are not intentionally stored on the server by this demo application.
+        </p>
+      </header>
+
+      <section class="legal-grid">
+        <article class="legal-card">
+          <h2>Document handling</h2>
+          <ul>
+            <li>Uploaded images and PDFs stay in browser memory while previews and OCR are running.</li>
+            <li>The app serves static files and does not include a document upload API.</li>
+            <li>Third-party OCR assets are loaded from CDNs at runtime, so those requests may be visible to your browser or hosting provider.</li>
+          </ul>
+        </article>
+
+        <article class="legal-card">
+          <h2>Operational data</h2>
+          <ul>
+            <li>Your hosting stack may still collect standard request metadata even though OCR is designed to run client-side.</li>
+            <li>If you add analytics, storage, or server-side OCR later, update this policy so it matches the real system.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
