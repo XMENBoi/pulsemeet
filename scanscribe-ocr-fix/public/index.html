@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="ScanScribe converts scanned images and PDFs into editable text with browser-based OCR."
+    >
+    <title>ScanScribe OCR</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="glow glow--amber" aria-hidden="true"></div>
+    <div class="glow glow--teal" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand__mark">SS</span>
+        <span class="brand__text">
+          <strong>ScanScribe</strong>
+          <small>Scanned document to text</small>
+        </span>
+      </a>
+
+      <nav class="topbar__links" aria-label="Primary">
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">OCR Workspace</p>
+          <h1>Turn scanned documents into editable text in your browser.</h1>
+          <p class="hero__lede">
+            Drop in JPG, PNG, WebP, or PDF files, run OCR page by page, and copy or download the extracted text when it is ready.
+          </p>
+
+          <div class="hero__chips" aria-label="Feature highlights">
+            <span class="chip">Image + PDF support</span>
+            <span class="chip">Live OCR progress</span>
+            <span class="chip">Copy or export text</span>
+          </div>
+        </div>
+
+        <aside class="hero__card">
+          <p class="eyebrow">How it works</p>
+          <ol class="steps">
+            <li>Upload a scanned image or PDF.</li>
+            <li>Preview pages before extraction.</li>
+            <li>Run OCR and review the text result.</li>
+            <li>Copy the text or download a `.txt` file.</li>
+          </ol>
+        </aside>
+      </section>
+
+      <section class="workspace">
+        <article class="panel upload-panel">
+          <div class="panel__header">
+            <div>
+              <p class="eyebrow">1. Upload</p>
+              <h2>Choose a scanned document</h2>
+            </div>
+            <span class="panel__badge" id="fileBadge">No file selected</span>
+          </div>
+
+          <label class="dropzone" id="dropzone" for="fileInput">
+            <input
+              id="fileInput"
+              type="file"
+              accept=".pdf,image/png,image/jpeg,image/webp"
+            >
+            <span class="dropzone__icon" aria-hidden="true">+</span>
+            <strong>Drop a document here</strong>
+            <span>or click to browse from your device</span>
+          </label>
+
+          <div class="actions">
+            <button class="button button--primary" id="extractButton" type="button" disabled>
+              Extract text with OCR
+            </button>
+            <button class="button" id="clearButton" type="button" disabled>
+              Clear
+            </button>
+          </div>
+
+          <div class="status-card" aria-live="polite">
+            <strong id="statusTitle">Ready</strong>
+            <p id="statusText">Upload a scan to start OCR.</p>
+            <div class="progress" aria-hidden="true">
+              <div class="progress__bar" id="progressBar"></div>
+            </div>
+            <small id="progressLabel">0%</small>
+          </div>
+        </article>
+
+        <article class="panel preview-panel">
+          <div class="panel__header">
+            <div>
+              <p class="eyebrow">2. Preview</p>
+              <h2>Pages ready for recognition</h2>
+            </div>
+            <span class="panel__badge" id="pageCount">0 pages</span>
+          </div>
+
+          <div class="preview-grid" id="previewGrid">
+            <div class="empty-state">
+              <strong>Your document preview will appear here.</strong>
+              <span>PDFs are split into pages automatically before OCR starts.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel result-panel">
+          <div class="panel__header">
+            <div>
+              <p class="eyebrow">3. Result</p>
+              <h2>Extracted text</h2>
+            </div>
+            <div class="actions actions--compact">
+              <button class="button" id="copyButton" type="button" disabled>Copy text</button>
+              <button class="button" id="downloadButton" type="button" disabled>Download .txt</button>
+            </div>
+          </div>
+
+          <label class="field">
+            <span>Document title</span>
+            <input id="documentTitle" class="input" type="text" value="scanned-document">
+          </label>
+
+          <label class="field">
+            <span>OCR language</span>
+            <select id="languageSelect" class="input">
+              <option value="eng" selected>English</option>
+              <option value="spa">Spanish</option>
+              <option value="fra">French</option>
+              <option value="deu">German</option>
+              <option value="ita">Italian</option>
+              <option value="por">Portuguese</option>
+            </select>
+          </label>
+
+          <textarea
+            id="resultText"
+            class="result-text"
+            placeholder="The extracted text will appear here after OCR runs."
+            spellcheck="false"
+          ></textarea>
+        </article>
+      </section>
+    </main>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
